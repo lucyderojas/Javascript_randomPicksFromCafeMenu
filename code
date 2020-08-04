@@ -1,0 +1,144 @@
+const menu = {
+
+  _courses: { appetizers: [], mains:[],desserts:[]
+
+  },  // <= end of _courses obj.
+
+
+//getting dishes:
+  get appetizers() {return this._courses['appetizers']},
+  get mains() {return this._courses['mains']},
+  get desserts() {return this._courses['desserts']},
+
+
+//setting dishes:
+  set appetizers(appetizerIn) {
+    this.appetizers.push(appetizerIn);
+  },
+
+  set mains(mainsIn) {
+    this.mains.push(mainsIn);
+  },
+
+  set desserts(dessertsIn) {
+    this.desserts.push(dessertsIn);
+  },
+
+
+
+//adding food to course:
+  addDishToCourse(courseName,dishName,dishPrice) {
+     
+    const dish = {};  
+    dish[dishName] = dishPrice;
+    this._courses[courseName].push(dish);
+
+  },  //<= end of addDishToCourse() obj.method
+
+
+
+//choosing random dish from a course (apet,mains and desserts):
+getRandomDishFromCourse(courseName) {
+
+  let size = (this._courses[courseName]).length;
+  let randomNumber = Math.floor(Math.random()*size);
+  
+  return this._courses[courseName][randomNumber];
+
+
+
+
+
+}, //<= end of chose RANDOM dish from course
+
+
+
+
+//generate 3 course meal:
+generateRandomMeal() {
+
+  let courses = ['appetizers','mains','desserts'];
+  let mealSet =[];
+  let totalPrice = 0;
+
+  for (course of courses) {
+
+    let meal = (Object.keys(this.getRandomDishFromCourse(course))).toString();
+    mealSet.push(meal);
+
+    let price = parseFloat(Object.values(this.getRandomDishFromCourse(course)));
+    totalPrice = totalPrice + price;
+
+
+
+    //mealSet.push(this.getRandomDishFromCourse(course));
+
+
+
+
+    
+  };
+
+  totalPrice = parseFloat((parseFloat(totalPrice)).toFixed(2));
+  mealSet = mealSet.toString();
+
+
+
+  return [mealSet,totalPrice];
+
+},
+
+
+
+
+
+}; //<= end of menu obj.
+
+
+
+
+//MEALS setup:
+
+// appetizers:
+menu.addDishToCourse('appetizers','prawns',5.60);
+menu.addDishToCourse('appetizers','soup',4.50);
+menu.addDishToCourse('appetizers', 'bread & olives', 5.10);
+menu.addDishToCourse('appetizers','carrots',3.20);
+menu.addDishToCourse('appetizers','crisps',1.99);
+
+//mains:
+menu.addDishToCourse('mains','chicken',15.50);
+menu.addDishToCourse('mains','beef',18.75);
+menu.addDishToCourse('mains','pork', 12.35 );
+menu.addDishToCourse('mains','fish', 9.99 );
+menu.addDishToCourse('mains','chips',2.99 );
+menu.addDishToCourse('mains','potatoes',1.99 );
+menu.addDishToCourse('mains','lemon sauce',3.56);
+menu.addDishToCourse('mains','breadcrumbs', 0.55);
+
+
+//desserts:
+menu.addDishToCourse('desserts','ice creams',2.68);
+menu.addDishToCourse('desserts','cheese board',5.66 );
+menu.addDishToCourse('desserts','coffee',2.85 );
+
+
+
+
+
+
+//see whats going on:
+
+console.log(menu.generateRandomMeal());
+
+
+
+
+
+
+
+
+
+
+// end of everything:
+console.log('end of code here.')
